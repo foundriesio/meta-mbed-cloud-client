@@ -4,13 +4,21 @@ LICENSE = "Apache-2.0"
 LICENSE_MD5SUM = "4336ad26bb93846e47581adc44c4514d"
 SOURCE_REPOSITORY = "git://git@github.com/ARMmbed/mbed-cloud-client.git"
 SOURCE_BRANCH = "master"
-SRCREV = "62de4b89d2350379278893f2f7a3ac937b4ae5f6"
+SRCREV = "f84aeea5047569b5833caf84056e4b3aa429e12c"
 SCRIPT_DIR = "${WORKDIR}/git/update-client-hub/modules/pal-linux/scripts"
 
 # Default Update scripts are for Raspberrypi3. Please override these for HW specific srcipts if required.
 UPDATE_CMDLINE          ?= "${SCRIPT_DIR}/arm_update_cmdline.sh"
 UPDATE_ACTIVATE         ?= "${SCRIPT_DIR}/yocto_rpi/arm_update_activate.sh"
 UPDATE_ACTIVATE_DETAILS ?= "${SCRIPT_DIR}/yocto_rpi/arm_update_active_details.sh"
+# To add an extra file into rootfs under /opt/arm (for example to test very large update binary sizes),
+# do the following:
+# 1. Uncomment the below EXTRA_FILES and set it to point to your testfile filename/path
+# 2. Uncomment the "SRC_URI +=" -lines below
+# 3. Uncomment the commented lines in do_install() -section
+# EXTRA_FILES = "/home/user/testfile"
+
+PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=${LICENSE_MD5SUM}"
 
@@ -18,6 +26,13 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=${LICENSE_MD5SUM}"
 #FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "${SOURCE_REPOSITORY};branch=${SOURCE_BRANCH};protocol=ssh"
+#SRC_URI += " \
+#         file://${EXTRA_FILES} \
+#"
+
+
+# tar and bzip2 as runtime dependency
+RDEPENDS_${PN} = "tar bzip2"
 
 # Deploy for getting update-client-hub to working area
 do_configure() {
@@ -31,6 +46,9 @@ do_install() {
     install -m 755 "${UPDATE_CMDLINE}"          "${D}/opt/arm"
     install -m 755 "${UPDATE_ACTIVATE}"         "${D}/opt/arm"
     install -m 755 "${UPDATE_ACTIVATE_DETAILS}" "${D}/opt/arm"
+#    if [ -e ${EXTRA_FILES} ]; then
+#         install -m 0644 ${EXTRA_FILES}         "${D}/opt/arm"
+#    fi
 }
 
 FILES_${PN} += "/opt \
