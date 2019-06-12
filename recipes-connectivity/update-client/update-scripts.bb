@@ -4,13 +4,14 @@ LICENSE = "Apache-2.0"
 LICENSE_MD5SUM = "4336ad26bb93846e47581adc44c4514d"
 SOURCE_REPOSITORY = "git://git@github.com/ARMmbed/mbed-cloud-client.git"
 SOURCE_BRANCH = "master"
-SRCREV = "ab201631cbb03e879aa7f6943e942cd8f024e2e9"
+SRCREV = "4f4a8463dd06160844fe430192741a678cd34183"
 SCRIPT_DIR = "${WORKDIR}/git/update-client-hub/modules/pal-linux/scripts"
 
 # Default Update scripts are for Raspberrypi3. Please override these for HW specific srcipts if required.
 UPDATE_CMDLINE          ?= "${SCRIPT_DIR}/arm_update_cmdline.sh"
 UPDATE_ACTIVATE         ?= "${SCRIPT_DIR}/yocto_rpi/arm_update_activate.sh"
 UPDATE_ACTIVATE_DETAILS ?= "${SCRIPT_DIR}/yocto_rpi/arm_update_active_details.sh"
+UPDATE_PREPARE         ?= "${SCRIPT_DIR}/yocto_rpi/arm_update_prepare.sh"
 # To add an extra file into rootfs under /opt/arm (for example to test very large update binary sizes),
 # do the following:
 # 1. Uncomment the below EXTRA_FILES and set it to point to your testfile filename/path
@@ -37,7 +38,7 @@ RDEPENDS_${PN} = "tar bzip2"
 # Deploy for getting update-client-hub to working area
 do_configure() {
     cd "${WORKDIR}/git"
-    ${binlocaldir}/mbed deploy --protocol ssh
+    SSH_AUTH_SOCK=${SSH_AUTH_SOCK} python -m mbed deploy
 }
 
 # Install update-scripts
@@ -46,6 +47,7 @@ do_install() {
     install -m 755 "${UPDATE_CMDLINE}"          "${D}/opt/arm"
     install -m 755 "${UPDATE_ACTIVATE}"         "${D}/opt/arm"
     install -m 755 "${UPDATE_ACTIVATE_DETAILS}" "${D}/opt/arm"
+    install -m 755 "${UPDATE_PREPARE}"          "${D}/opt/arm"
 #    if [ -e ${EXTRA_FILES} ]; then
 #         install -m 0644 ${EXTRA_FILES}         "${D}/opt/arm"
 #    fi
