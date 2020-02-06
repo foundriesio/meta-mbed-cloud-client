@@ -5,7 +5,7 @@ LICENSE = "Apache-2.0"
 LICENSE_MD5SUM = "4336ad26bb93846e47581adc44c4514d"
 SOURCE_REPOSITORY = "git://git@github.com/ARMmbed/mbed-cloud-client-example.git"
 SOURCE_BRANCH = "master"
-SRCREV = "fd495ae5d9c94e3501cc17bc2a71d51ed1487179"
+SRCREV = "2278a25d10a9eb01f66f1250b028c73295634930"
 APP_NAME = "mbed-cloud-client-example"
 
 LIC_FILES_CHKSUM = "file://${WORKDIR}/git/${APP_NAME}/mbed-cloud-client/LICENSE;md5=${LICENSE_MD5SUM}"
