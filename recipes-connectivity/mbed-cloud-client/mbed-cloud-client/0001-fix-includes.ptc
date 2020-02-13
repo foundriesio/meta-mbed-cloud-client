@@ -1,0 +1,64 @@
+From dded85bbc36b0d7dad8c18d50dc4ebd8fee566fd Mon Sep 17 00:00:00 2001
+From: Michael Scott <mike@foundries.io>
+Date: Wed, 12 Feb 2020 11:46:21 -0800
+Subject: [PATCH] fix includes
+
+Signed-off-by: Michael Scott <mike@foundries.io>
+---
+ CMakeLists.txt                 | 23 +++++++++++++++++++++++
+ source/platform/CMakeLists.txt |  5 +++++
+ 2 files changed, 28 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6f5ce4c..fbec06c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -13,6 +13,29 @@ add_definitions(-DMBED_CONF_MBED_CLIENT_EVENT_LOOP_SIZE=8192)
+ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/source)
+ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/source/include)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/source/platform/include)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/certificate-enrollment-client/certificate-enrollment-client)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/factory-configurator-client/factory-configurator-client/factory-configurator-client)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/factory-configurator-client/fcc-output-info-handler/fcc-output-info-handler)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/factory-configurator-client/key-config-manager/key-config-manager)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/factory-configurator-client/mbed-trace-helper/mbed-trace-helper)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/mbed-client)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/mbed-client/mbed-client)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/mbed-client/mbed-client-c)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/mbed-client-pal/Configs/pal_config/${OS_BRAND})
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/mbed-client-randlib)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/mbed-cloud-client)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/mbed-coap/mbed-coap)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/mbed-trace)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/nanostack-libservice/mbed-client-libservice)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/ns-hal-pal)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/sal-stack-nanostack-eventloop)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/source)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/update-client-hub)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbed-cloud-client/update-client-hub/modules/common)
++
++
+ 
+ # This is needed for compiling and linking SW.
+ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/source/platform")
+diff --git a/source/platform/CMakeLists.txt b/source/platform/CMakeLists.txt
+index 4e12886..a545a30 100644
+--- a/source/platform/CMakeLists.txt
++++ b/source/platform/CMakeLists.txt
+@@ -24,6 +24,11 @@ FILE(GLOB PLATFORM_ROT_SRC
+     "${CMAKE_CURRENT_SOURCE_DIR}/pal_plat_rot_insecure.c"
+     )
+ 
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../mbed-cloud-client/mbed-client-pal/Configs/pal_config/${OS_BRAND})
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../mbed-cloud-client/mbed-client-pal/Source)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../mbed-cloud-client/mbed-client-pal/Source/PAL-Impl/Services-API)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../mbed-cloud-client/mbed-trace)
++include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../mbed-cloud-client/nanostack-libservice/mbed-client-libservice)
+ 
+ # Library for providing the mcc_* functions.
+ CREATE_LIBRARY(platformCommon "${PLATFORM_SRC}" "")
+-- 
+2.25.0
+

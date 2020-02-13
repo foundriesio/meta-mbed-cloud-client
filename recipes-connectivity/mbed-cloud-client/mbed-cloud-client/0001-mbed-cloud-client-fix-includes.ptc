@@ -1,0 +1,33 @@
+From 0f65b2d80a64e1d003f3c6bea34c20c7d48670f5 Mon Sep 17 00:00:00 2001
+From: Michael Scott <mike@foundries.io>
+Date: Wed, 12 Feb 2020 10:55:46 -0800
+Subject: [PATCH] mbed-cloud-client: fix includes
+
+Signed-off-by: Michael Scott <mike@foundries.io>
+---
+ CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index fa82812..b6bf12b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -57,6 +57,7 @@ SET(PAL_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mbed-client-pal/Source)
+ ADD_GLOBALDIR(${PAL_SOURCE_DIR})
+ ADD_GLOBALDIR(${PAL_SOURCE_DIR}/PAL-Impl/Services-API)
+ ADD_GLOBALDIR(${PAL_SOURCE_DIR}/Port/Platform-API)
++ADD_GLOBALDIR(${CMAKE_CURRENT_SOURCE_DIR}/mbed-client-pal/Configs/pal_config/${OS_BRAND})
+ 
+ # common components
+ 
+@@ -113,6 +114,7 @@ include_directories(${FACTORY_CLIENT_SOURCE_DIR}/storage)
+ include_directories(${FACTORY_CLIENT_SOURCE_DIR}/storage/storage)
+ include_directories(${FACTORY_CLIENT_SOURCE_DIR}/storage/source/include)
+ include_directories(${FACTORY_CLIENT_SOURCE_DIR}/key-config-manager)
++include_directories(${FACTORY_CLIENT_SOURCE_DIR}/key-config-manager/key-config-manager)
+ include_directories(${FACTORY_CLIENT_SOURCE_DIR}/key-config-manager/source/include)
+ include_directories(${FACTORY_CLIENT_SOURCE_DIR}/utils)
+ include_directories(${FACTORY_CLIENT_SOURCE_DIR}/utils/utils)
+-- 
+2.25.0
+
