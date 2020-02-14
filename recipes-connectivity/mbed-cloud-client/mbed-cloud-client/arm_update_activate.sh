@@ -57,12 +57,17 @@ if ! aktualizr-lite update --update-name "${LMP_VERSION}"; then
     exit 3
 fi
 
-# use ostree admin status to get pending SHA
+# use ostree admin status to get pending SHA / current SHA
 PENDING_SHA=$(ostree admin status | grep -e "(pending)$" | awk '{print $2}' | cut -c-64)
 if [ -z "${PENDING_SHA}" ]; then
-    # TODO: revert?!
-    cp /var/sota/sota.toml.bak /var/sota/sota.toml
-    exit 4
+    # firmware update could have applied the same firmware with only docker-app changes
+    # return current active in this case(?)
+    PENDING_SHA=$(ostree admin status | grep -e "^* " | awk '{print $3}' | cut -c-64)
+    if [ -z "${PENDING_SHA}" ]; then
+        # TODO: revert?!
+        cp /var/sota/sota.toml.bak /var/sota/sota.toml
+        exit 4
+    fi
 fi
 
 # save "${FIRMWARE}" file with pending SHA
