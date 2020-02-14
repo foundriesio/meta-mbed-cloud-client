@@ -1,0 +1,14 @@
+[Unit]
+Description=Arm MBED Cloud Client
+After=network.target
+# require sota.toml
+ConditionPathExists=/var/sota/sota.toml
+
+[Service]
+RestartSec=180
+Restart=always
+ExecStartPre=mkdir -p /var/sota/pelion
+ExecStart=/usr/bin/mbedCloudClient
+
+[Install]
+WantedBy=multi-user.target
