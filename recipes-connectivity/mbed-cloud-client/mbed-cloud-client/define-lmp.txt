@@ -31,6 +31,7 @@ add_definitions(-DPLATFORM_ENABLE_BUTTON=0)
 add_definitions(-DPLATFORM_ENABLE_LED=1)
 
 add_definitions(-DPAL_FS_MOUNT_POINT_PRIMARY="\\"/var/sota/pelion/config\\"")
+add_definitions(-DPAL_FS_MOUNT_POINT_SECONDARY="\\"/var/sota/pelion/config\\"")
 add_definitions(-DPAL_UPDATE_FIRMWARE_DIR="\\"/var/sota/pelion/firmware\\"")
 add_definitions(-DMBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_LINUX_LMP)
 add_definitions(-DARM_UC_SOCKET_TIMEOUT_MS=5*60*1000)
