@@ -38,15 +38,16 @@ if ! cp /var/sota/sota.toml /var/sota/sota.toml.bak > /dev/null; then
     exit 2
 fi
 
+# remove docker_apps line
+sed -i "/^docker_apps =.*$/d" /var/sota/sota.toml
 if [ ! -z "${LMP_DOCKER_APPS}" ]; then
-    # remove docker_apps line
-    sed -i "/^docker_apps =.*$/d" /var/sota/sota.toml
     # insert docker_apps line after [pacman]
     sed -i "/^\[pacman\]/a docker_apps =\"${LMP_DOCKER_APPS}\"" /var/sota/sota.toml
 fi
+
+# remove tags line
+sed -i "/^tags =.*$/d" /var/sota/sota.toml
 if [ ! -z "${LMP_TAGS}" ]; then
-    # remove tags line
-    sed -i "/^tags =.*$/d" /var/sota/sota.toml
     # insert tags line after [pacman]
     sed -i "/^\[pacman\]/a tags =\"${LMP_TAGS}\"" /var/sota/sota.toml
 fi
