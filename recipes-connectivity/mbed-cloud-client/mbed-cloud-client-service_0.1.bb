@@ -13,6 +13,8 @@ S = "${WORKDIR}"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
+RDEPENDS_${PN} = "aktualizr-lite"
+
 SYSTEMD_PACKAGES = "${PN}"
 SYSTEMD_SERVICE_${PN} = "mbed-cloud-client.service mbed-cloud-client.path"
 
