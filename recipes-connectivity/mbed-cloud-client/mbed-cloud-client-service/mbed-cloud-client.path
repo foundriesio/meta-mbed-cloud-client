@@ -1,0 +1,8 @@
+[Unit]
+Description=Arm MBED Cloud Client path monitor
+
+[Path]
+PathExists=/var/sota/sota.toml
+
+[Install]
+WantedBy=multi-user.target
