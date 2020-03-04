@@ -1,5 +1,6 @@
 [Unit]
 Description=Arm MBED Cloud Client path monitor
+ConditionPathExists=/etc/systemd/system/multi-user.target.wants/mbed-cloud-client.service
 
 [Path]
 PathExists=/var/sota/sota.toml
