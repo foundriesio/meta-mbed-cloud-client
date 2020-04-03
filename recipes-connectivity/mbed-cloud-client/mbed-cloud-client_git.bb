@@ -24,7 +24,6 @@ DEPENDS += "\
     ${PYTHON_PN}-native \
     ${PYTHON_PN}-pip-native \
     ${PYTHON_PN}-mbed-cli-native \
-    glibc \
 "
 
 RDEPENDS_${PN} = " \
